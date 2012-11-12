@@ -9,8 +9,12 @@ Bonjour : @session.get("nickname")
     <ul>
         @for(task <- tasks) {
             <li>
-                @task.getLabel priority : @task.getPriority person : @task.getUser.getNickname project : @task.getProject.getLabel
+                @task.getLabel priority : @task.getPriority person : @task.getUser.getNickname
                 
+		@if(task.getProject != null){
+			 project : @task.getProject.getLabel
+		}
+
                 @form(routes.Application.deleteTask(task.getId)) {
                     <input type="submit" value="Delete">
                 }
