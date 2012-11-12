@@ -15,3 +15,4 @@ eclipse
 server.pid
 TaskManagerServer/target
 TaskManagerServer/conf/evolutions
+*~

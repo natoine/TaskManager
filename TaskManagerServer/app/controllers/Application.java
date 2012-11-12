@@ -36,6 +36,7 @@ public class Application extends Controller {
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
+		if(filledForm.field("user_id").value() == null) filledForm.reject("user" ,"user required !");
 		if(filledForm.hasErrors()) {
 			return badRequest(
 					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll(), Project.findAll())
