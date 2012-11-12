@@ -22,10 +22,13 @@ public class UserAccount extends Model
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@Email @Required
 	private String mail;
+
 	@Required @Column(unique=true)
 	private String nickname;
+
 	@Required
 	private String password;
 	

@@ -29,10 +29,13 @@ public class Project extends Model
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+
 	@Required
 	private String label;
+
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="project")
 	private List<Task> tasks;
+
 	@Temporal( TemporalType.DATE )
 	private Date creationDate = new Date();
 	
