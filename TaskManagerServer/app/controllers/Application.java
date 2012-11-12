@@ -26,21 +26,15 @@ public class Application extends Controller {
 	public static Result tasks() {
 		List<Task> ttasks = Task.findAll();
 		return ok(
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll(), projects)
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll(), Project.findAll())
-				//tasks.render(Task.findAll(), taskForm, UserAccount.findAll())
 				tasks.render(Task.findAll(), taskForm)
-				//views.html.index.render(Task.findAll(), taskForm, UserAccount.findAll())
 				);
 	}
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
-		if(filledForm.field("user_id").value() == null) filledForm.reject("user" ,"user required !");
+		if(filledForm.field("user_id").value() == null) filledForm.reject("user" ,"");
 		if(filledForm.hasErrors()) {
 			return badRequest(
-					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll(), Project.findAll())
-					//tasks.render(Task.findAll(), filledForm, UserAccount.findAll())
 					tasks.render(Task.findAll(), filledForm)
 					);
 		} else {
@@ -57,7 +51,6 @@ public class Application extends Controller {
 	public static Result projects() {
 		return ok(
 				projects.render(Project.findAll(), projectForm)
-				//views.html.index.render(Task.findAll(), taskForm, UserAccount.findAll())
 				);
 	}
 	
@@ -66,7 +59,6 @@ public class Application extends Controller {
 		if(filledForm.hasErrors()) {
 			return badRequest(
 					projects.render(Project.findAll(), filledForm)
-					//views.html.index.render(Task.findAll(), filledForm, UserAccount.findAll())
 					);
 		} else {
 			Project.create(filledForm.get());
