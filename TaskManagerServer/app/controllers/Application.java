@@ -32,7 +32,10 @@ public class Application extends Controller {
 
 	public static Result newTask() {
 		Form<Task> filledForm = taskForm.bindFromRequest();
-		if(filledForm.field("user_id").value() == null) filledForm.reject("user" ,"");
+		if(filledForm.field("user").value() == null) 
+		{
+			filledForm.reject("user" ,"");
+		}
 		if(filledForm.hasErrors()) {
 			return badRequest(
 					tasks.render(Task.findAll(), filledForm)
