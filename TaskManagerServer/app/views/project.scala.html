@@ -1,0 +1,32 @@
+@(project: Project)
+
+@import helper._
+
+@main(project.getLabel) {
+    
+ <h1>@(project.getLabel)</h1>
+    
+    <ul>
+        @for(task <- project.getTasks) {
+             <li>
+                @(task.getLabel) priority : @(task.getPriority) person : @(task.getUser.getNickname)
+                
+		@if(task.getProject != null){
+			 project : @(task.getProject.getLabel)
+		}
+
+		@if(task.getEstimatedDuration == 0){
+			 durée : instantané
+		} else{
+			durée : @(task.getEstimatedDuration) minutes
+		}
+
+		Etat : @(task.getTaskStatus)
+
+                @form(routes.Application.deleteTask(task.getId)) {
+                    <input type="submit" value="Delete">
+                }
+            </li>
+        }
+    </ul>    
+}

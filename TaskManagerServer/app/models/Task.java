@@ -25,6 +25,9 @@ public class Task extends Model
 	@Required
 	@Min(0)
 	private Integer priority;
+	
+	@Min(0)
+	private Integer estimatedDuration;
 
 	@ManyToOne
 	private Project project;
@@ -33,6 +36,8 @@ public class Task extends Model
 	@ManyToOne
 	private UserAccount user;
 
+	private TaskStatus taskStatus = TaskStatus.NOTSTARTED;
+	
 	public Long getId()
 	{
 		return id ;
@@ -63,6 +68,14 @@ public class Task extends Model
 		priority = _priority ;
 	}
 
+	public Integer getEstimatedDuration() {
+		return estimatedDuration;
+	}
+
+	public void setEstimatedDuration(Integer estimatedDuration) {
+		this.estimatedDuration = estimatedDuration;
+	}
+
 	public Project getProject()
 	{
 		return project ;
@@ -81,6 +94,14 @@ public class Task extends Model
 	public void setUser(UserAccount _user)
 	{
 		user = _user ;
+	}
+
+	public TaskStatus getTaskStatus() {
+		return taskStatus;
+	}
+
+	public void setTaskStatus(TaskStatus taskStatus) {
+		this.taskStatus = taskStatus;
 	}
 
 	public static Finder<Long,Task> find = new Finder( Long.class, Task.class );

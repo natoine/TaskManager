@@ -41,7 +41,10 @@ public class Application extends Controller {
 					tasks.render(Task.findAll(), filledForm)
 					);
 		} else {
-			Task.create(filledForm.get());
+			Task newTask = filledForm.get();
+			if(filledForm.field("estimatedDuration").value().equalsIgnoreCase("") )
+				newTask.setEstimatedDuration(0);
+			Task.create(newTask);
 			return redirect(routes.Application.tasks());  
 		}
 	}
@@ -74,6 +77,11 @@ public class Application extends Controller {
 		return redirect(routes.Application.projects());
 	}
 
+	public static Result seeProject(Long id) {
+		Project pproject = Project.findById(id);
+		return ok(project.render(pproject));
+	}
+	
 // -- Authentication
     
     public static class Login {
@@ -128,7 +136,8 @@ public class Application extends Controller {
         session().clear();
         flash("success", "You've been logged out");
         return redirect(
-            routes.Application.login()
+           //routes.Application.index()
+        		routes.Application.tasks()
         );
     }
 

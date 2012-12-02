@@ -24,13 +24,24 @@
 				</div>
 				<div class="pull-right">
                     			<ul class="nav">
-                    				<li><a href="">Déconnexion</a></li>
+                    				<li>	
+							@if(session.get("nickname") == null) {
+								<a href="/login">Connexion</a>
+							} else {
+								<a href="/logout">Déconnexion</a>
+							}
+						</li>
                     			</ul>
                 </div>
 			</div>		
 		</div>	
 	</div>
 	<div class="jumbotron masthead">
+		@if(flash.contains("success")) {
+                <p class="success">
+                    @flash.get("success")
+                </p>
+            }		
 		<div class="container">
         	@content
 		</div>

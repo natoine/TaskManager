@@ -4,16 +4,24 @@
 
 @main("See All Tasks") {
     
- <h1>@tasks.size() task(s)</h1>
-Bonjour : @session.get("nickname")
+ <h1>@(tasks.size()) task(s)</h1>
+Bonjour : @(session.get("nickname"))
     <ul>
         @for(task <- tasks) {
             <li>
-                @task.getLabel priority : @task.getPriority person : @task.getUser.getNickname
+                @(task.getLabel) priority : @(task.getPriority) person : @(task.getUser.getNickname)
                 
 		@if(task.getProject != null){
-			 project : @task.getProject.getLabel
+			 project : @(task.getProject.getLabel)
 		}
+
+		@if(task.getEstimatedDuration == 0){
+			 durée : instantané
+		} else{
+			durée : @(task.getEstimatedDuration) minutes
+		}
+
+		Etat : @(task.getTaskStatus)
 
                 @form(routes.Application.deleteTask(task.getId)) {
                     <input type="submit" value="Delete">
@@ -26,8 +34,9 @@ Bonjour : @session.get("nickname")
     
     @form(routes.Application.newTask()) {
         
-        @inputText(taskForm("label"), '_label -> "Nom de la tâche")
-        @inputText(taskForm("priority"))
+        @inputText(taskForm("label"), '_label -> "Nom de la tâche :")
+        @inputText(taskForm("priority"), '_label -> "Priorité :")
+	@inputText(taskForm("estimatedDuration"), '_label -> "Temps estimé (minutes) :")
         Project :
         @select(taskForm("project.id"), 
         		options(Project.options()),

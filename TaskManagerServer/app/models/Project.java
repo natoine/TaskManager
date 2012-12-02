@@ -76,6 +76,11 @@ public class Project extends Model
 		return find.all();
 	}
 	
+	public static Project findById(Long id)
+	{
+		return find.ref(id);
+	}
+	
 	 public static Map<String,String> options() {
 	        List<Project> projects = findAll();
 	        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
