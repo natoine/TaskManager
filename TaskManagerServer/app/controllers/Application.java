@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -47,6 +48,14 @@ public class Application extends Controller {
 			Task.create(newTask);
 			return redirect(routes.Application.tasks());  
 		}
+	}
+	
+	public static Result nextTaskStatus(Long id)
+	{
+		Task ttask = Task.findById(id);
+		ttask.nextTaskStatus();
+		ttask.update();
+		return ok(Json.toJson(ttask.getTaskStatus()));
 	}
 
 	public static Result deleteTask(Long id) {

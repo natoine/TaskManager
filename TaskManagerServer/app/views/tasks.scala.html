@@ -21,7 +21,21 @@ Bonjour : @(session.get("nickname"))
 			durée : @(task.getEstimatedDuration) minutes
 		}
 
-		Etat : @(task.getTaskStatus)
+		@if(task.getTaskStatus == TaskStatus.NOTSTARTED){
+			<button class="btn btn-danger" type ="button">NOTSTARTED</button>
+		} else{ @if(task.getTaskStatus == TaskStatus.STARTED ) {
+			<button class="btn btn-warning" type ="button">STARTED</button>
+			} else{ @if(task.getTaskStatus == TaskStatus.FINISHED ) {
+			<button class="btn btn-success" type ="button">FINISHED</button>
+				} else{ @if(task.getTaskStatus == TaskStatus.CLOSED ) {
+			<button class="btn btn-inverse" type ="button">CLOSED</button>
+					} else{ @if(task.getTaskStatus == TaskStatus.REOPENED ) {
+			<button class="btn btn-info" type ="button">REOPENED</button>
+						}
+					}
+				}
+			}
+		}
 
                 @form(routes.Application.deleteTask(task.getId)) {
                     <input type="submit" value="Delete">

@@ -104,6 +104,18 @@ public class Task extends Model
 		this.taskStatus = taskStatus;
 	}
 
+	public TaskStatus nextTaskStatus()
+	{
+		switch(taskStatus)
+		{
+			case NOTSTARTED : this.taskStatus = TaskStatus.STARTED ; break;
+			case STARTED : this.taskStatus = TaskStatus.FINISHED ; break;
+			case FINISHED : this.taskStatus = TaskStatus.CLOSED ; break;
+			case CLOSED : this.taskStatus = TaskStatus.REOPENED ; break;
+		}
+		return taskStatus ;
+	}
+	
 	public static Finder<Long,Task> find = new Finder( Long.class, Task.class );
 
 	public static List<Task> findAll() 
@@ -111,6 +123,11 @@ public class Task extends Model
 		return find.all();
 	}
 
+	public static Task findById(Long id)
+	{
+		return find.ref(id);
+	}
+	
 	public static void create(Task task) 
 	{
 		task.save();
