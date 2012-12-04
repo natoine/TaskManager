@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonNode;
+
 public class Application extends Controller {
 
 	static Form<Task> taskForm = form(Task.class);
@@ -50,8 +52,11 @@ public class Application extends Controller {
 		}
 	}
 	
-	public static Result nextTaskStatus(Long id)
+	public static Result nextTaskStatus()
 	{
+		JsonNode json = request().body().asJson();
+		System.out.println("json :" + json);
+		Long id = json.findPath("id").asLong(0);
 		Task ttask = Task.findById(id);
 		ttask.nextTaskStatus();
 		ttask.update();

@@ -112,6 +112,7 @@ public class Task extends Model
 			case STARTED : this.taskStatus = TaskStatus.FINISHED ; break;
 			case FINISHED : this.taskStatus = TaskStatus.CLOSED ; break;
 			case CLOSED : this.taskStatus = TaskStatus.REOPENED ; break;
+			case REOPENED : this.taskStatus = TaskStatus.FINISHED ; break;
 		}
 		return taskStatus ;
 	}

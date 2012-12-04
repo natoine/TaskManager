@@ -84,7 +84,51 @@ $(document).ready(function($){
 
 	 $changeTaskStatus.click(function(event) {
             $this = $(this);
-		alert("changeStatus pressed");
+		//alert("changeStatus pressed");
+	 	var id = $this.attr("id").substring(11);
+		//alert("changeStatus for id : " + id);
+		 $.ajax({
+                type: 'POST',
+                url: "@routes.Application.nextTaskStatus()",
+		contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({"id":id}),
+                success: function(data){
+                   //alert(data);
+			if (data == "STARTED")
+			{
+				//alert("started");
+				$this.removeClass("btn-danger");
+				$this.addClass("btn-warning");
+				$this.empty();
+				$this.append("STARTED");
+			}
+			else if (data == "FINISHED")
+			{
+				//alert("finished");
+				$this.removeClass("btn-warning");
+				$this.removeClass("btn-info");
+				$this.addClass("btn-success");
+				$this.empty();
+				$this.append("FINISHED");
+			}			
+			else if (data == "CLOSED")
+			{
+				//alert("closed");
+				$this.removeClass("btn-success");
+				$this.addClass("btn-inverse");
+				$this.empty();
+				$this.append("CLOSED");
+			}
+			else if (data == "REOPENED")
+			{
+				//alert("reopened");
+				$this.removeClass("btn-inverse");
+				$this.addClass("btn-info");
+				$this.empty();
+				$this.append("REOPENED");
+			}
+                }
+            })
 	});
 
 });
