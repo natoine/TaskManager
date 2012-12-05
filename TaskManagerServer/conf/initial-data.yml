@@ -8,6 +8,13 @@ users:
         nickname: natoine
         password: secret
 
+  - !!models.UserAccount
+        id:       2
+        mail:     anthony@sample.com
+        nickname: xandar
+        password: secret
+
+
 #projects:
 #
 #  - !!models.Project
